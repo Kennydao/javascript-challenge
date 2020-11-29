@@ -1,7 +1,7 @@
 // from data.js
 var tableData = data
 
-// Part 1
+// Part 2
 
 // use d3 to select tbody tag
 var tbody = d3.select("tbody");
@@ -29,7 +29,7 @@ var form = d3.select("#datetime");
 
 // Create event handlers
 button.on("click", runEnter);
-form.on("submit",runEnter);
+// form.on("submit",runEnter);
 
 function runEnter() {
 
@@ -37,35 +37,42 @@ function runEnter() {
     d3.event.preventDefault();
 
     // Select the input element and get the raw HTML node
-    var input = d3.select("#datetime");
+    var input1 = d3.select("#datetime");
 
     // Get the value property of the input element
-    var inputText = input.property("value");
+    var inputDate = input1.property("value");
 
-    //console.log(inputText);
+    var input2 = d3.select("#city");
+    var inputCity = input2.property("value");
 
-    // verify if input date is blank, refresh with dataset
-    if (inputText === "") {
-        var tbody = d3.select("tbody");
-        tbody.html("");
-        init(tableData)
+    var input3 = d3.select("#state");
+    var inputState = input3.property("value");
+
+    var input4 = d3.select("#country");
+    var inputCountry = input4.property("value");
+
+    var input5 = d3.select("#shape");
+    var inputShape = input5.property("value");
+
+
+// Use the form input to filter the data by blood type
+    var filterredData = tableData.filter(x => x.datetime === inputDate &
+        x.city === inputCity & x.state === inputState & x.country === inputCountry &
+        x.shape === inputShape);
+
+    if (filterredData.length === 0) {
+        init(tableData);
     }
-    // otherwise filter out the input date and display the results
     else {
-        // Use the form input to filter the data by blood type
-        var selectedData = tableData.filter(x => x.datetime === inputText);
-        console.log(selectedData);
+        console.log(filterredData);
 
         // use d3 to select table body
         var tbody = d3.select("tbody");
 
         // clear the existing content being displayed in the filter table area
         tbody.html("");
-        init(selectedData);
-    }
-};
+        init(filterredData);
+        }
+    };
 
 init(tableData);
-
-// Part 2
-

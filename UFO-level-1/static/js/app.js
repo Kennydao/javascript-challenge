@@ -1,6 +1,8 @@
 // from data.js
 var tableData = data
 
+// console.log(tableData);
+
 // Part 1
 
 // use d3 to select tbody tag
